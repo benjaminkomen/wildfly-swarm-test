@@ -17,6 +17,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <docker.from>jboss/base-jdk:8</docker.from>
+        <docker.maven.plugin.version>0.25.2</docker.maven.plugin.version>
+        <docker.assemblyDescriptorRef>artifact</docker.assemblyDescriptorRef>
+        <docker.image>bkomen/wildfly-swarm-test:latest</docker.image>
+
+        <!--<docker.host>tcp://vagrant.f8:2375</docker.host>-->
+        <!--<docker.registry>registry.vagrant.f8:80</docker.registry>-->
     </properties>
 
     <dependencyManagement>
@@ -98,6 +105,69 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.maven.plugin.version}</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>${docker.image}</name>
+                            <build>
+                                <from>${docker.from}</from>
+                                <maintainer>markus@jboss.org</maintainer>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <entryPoint>
+                                    <exec>
+                                        <arg>java</arg>
+                                        <arg>-jar</arg>
+                                        <arg>/wildfly-swarm-test/foobar-swarm.jar</arg>
+                                    </exec>
+                                </entryPoint>
+                                <assembly>
+                                    <inline>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <useProjectAttachments>true</useProjectAttachments>
+                                                <includes>
+                                                    <include>${project.groupId}:${project.artifactId}:jar:swarm</include>
+                                                </includes>
+                                                <outputFileNameMapping>foobar-swarm.jar</outputFileNameMapping>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                    <user>jboss:jboss:jboss</user>
+                                    <basedir>/wildfly-swarm-test</basedir>
+                                </assembly>
+                            </build>
+                            <run>
+                                <ports>
+                                    <!-- Map container port 8080 to a dynamical port -->
+                                    <port>host.port:8080</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <url>http://localhost:${host.port}</url>
+                                        <method>GET</method>
+                                        <!-- Change this to 200 when the URL above hits an endpoint -->
+                                        <status>200..399</status>
+                                    </http>
+                                    <time>30000</time>
+                                    <kill>1000</kill>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                                <log>
+                                    <color>yellow</color>
+                                    <prefix>SWARM</prefix>
+                                </log>
+                            </run>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
         </plugins>
