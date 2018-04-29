@@ -1,7 +1,8 @@
 # wildfly-swarm-test
 
-Just testing out wildfly swarm with docker.
+First do a maven clean install, which compiles the code.
 
-run: mvn clean install docker:build docker:run
+Run the following two commands:
+`docker build -t bkomen/wildfly-swarm-test .`
 
-@todo: the docker:run part does not work yet
+`docker run -p 8080:8080 bkomen/wildfly-swarm-test`
