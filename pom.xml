@@ -16,11 +16,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
 
-        <version.wildfly.swarm>2018.4.1</version.wildfly.swarm>
+        <version.wildfly.swarm>2018.5.0</version.wildfly.swarm>
         <version.maven.compiler.plugin>3.7.0</version.maven.compiler.plugin>
         <version.maven.war.plugin>3.2.0</version.maven.war.plugin>
         <version.joda.time>2.9.9</version.joda.time>
         <version.junit>4.12</version.junit>
+        <version.slf4j>1.7.25</version.slf4j>
     </properties>
 
     <dependencyManagement>
@@ -48,31 +49,6 @@
             <artifactId>jaxrs</artifactId>
         </dependency>
 
-        <!-- JSF -->
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>jsf</artifactId>
-        </dependency>
-
-        <!-- CDI -->
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>cdi</artifactId>
-        </dependency>
-
-        <!-- Bean validation -->
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>bean-validation</artifactId>
-        </dependency>
-
-        <!-- CDI (needed in Message.java) -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.2</version>
-        </dependency>
-
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -85,6 +61,21 @@
             <scope>test</scope>
             <version>${version.junit}</version>
         </dependency>
+
+        <!-- the logging facade, not a logging implementation but an interface to log against -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${version.slf4j}</version>
+        </dependency>
+
+        <!-- the logging implementation -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${version.slf4j}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -105,9 +96,6 @@
                 <artifactId>wildfly-swarm-plugin</artifactId>
                 <version>${version.wildfly.swarm}</version>
                 <configuration>
-                    <fractions>
-                        <fraction>jsf</fraction>
-                    </fractions>
                     <hollow>true</hollow>
                     <properties>
                         <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
