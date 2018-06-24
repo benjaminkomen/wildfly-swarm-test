@@ -5,7 +5,7 @@
 First do a maven clean install, which compiles the code:
 `mvn clean install`
 
-You now have at least a .war and a .jar file in your target folder of your project. You can run the project from Git Bash using: `mvn wildfly-swarm:run`
+You now have at least a .war and a .jar file in your target folder of your project. You can run the project from Git Bash using: `mvn thorntail:run`
 
 Run the following two commands (while your current direction is the folder of the wildfly-swarm-test project):
 `docker build -t bkomen/wildfly-swarm-test .`

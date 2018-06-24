@@ -16,19 +16,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
 
-        <version.wildfly.swarm>2018.4.1</version.wildfly.swarm>
-        <version.maven.compiler.plugin>3.7.0</version.maven.compiler.plugin>
-        <version.maven.war.plugin>3.2.0</version.maven.war.plugin>
-        <version.joda.time>2.9.9</version.joda.time>
-        <version.junit>4.12</version.junit>
+        <thorntail.version>2.0.0.Final</thorntail.version>
+        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
+        <maven.war.plugin.version>3.2.0</maven.war.plugin.version>
+        <joda.time.version>2.9.9</joda.time.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly.swarm</groupId>
+                <groupId>io.thorntail</groupId>
                 <artifactId>bom</artifactId>
-                <version>${version.wildfly.swarm}</version>
+                <version>${thorntail.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -38,31 +38,31 @@
     <dependencies>
         <!-- Wildfly Swarm Fractions -->
         <dependency>
-            <groupId>org.wildfly.swarm</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>undertow</artifactId>
         </dependency>
 
         <!-- JAX-RS -->
         <dependency>
-            <groupId>org.wildfly.swarm</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>jaxrs</artifactId>
         </dependency>
 
         <!-- JSF -->
         <dependency>
-            <groupId>org.wildfly.swarm</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>jsf</artifactId>
         </dependency>
 
         <!-- CDI -->
         <dependency>
-            <groupId>org.wildfly.swarm</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>cdi</artifactId>
         </dependency>
 
         <!-- Bean validation -->
         <dependency>
-            <groupId>org.wildfly.swarm</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>bean-validation</artifactId>
         </dependency>
 
@@ -76,38 +76,36 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>${version.joda.time}</version>
+            <version>${joda.time.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-            <version>${version.junit}</version>
+            <version>${junit.version}</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>foobar</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${version.maven.war.plugin}</version>
+                <version>${maven.war.plugin.version}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-plugin</artifactId>
-                <version>${version.wildfly.swarm}</version>
+                <groupId>io.thorntail</groupId>
+                <artifactId>thorntail-maven-plugin</artifactId>
+                <version>${thorntail.version}</version>
                 <configuration>
-                    <fractions>
-                        <fraction>jsf</fraction>
-                    </fractions>
+                    <!--<fractions>-->
+                        <!--<fraction>jsf</fraction>-->
+                    <!--</fractions>-->
                     <hollow>true</hollow>
                     <properties>
                         <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
@@ -125,7 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.maven.compiler.plugin}</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>

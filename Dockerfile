@@ -8,8 +8,8 @@ MAINTAINER  Benjamin Komen <komenb@gmail.com>
 
 # CMD
 
-ADD target/foobar-hollow-swarm.jar /opt/foobar-hollow-swarm.jar
-ADD target/foobar.war /opt/deploy/foobar.war
+ADD target/wildfly-swarm-test-1.0-SNAPSHOT-hollow-thorntail.jar /opt/wildfly-swarm-test-1.0-SNAPSHOT-hollow-thorntail.jar
+ADD target/wildfly-swarm-test-1.0-SNAPSHOT.war /opt/deploy/wildfly-swarm-test-1.0-SNAPSHOT.war
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/opt/foobar-hollow-swarm.jar", "/opt/deploy/foobar.war"]
+ENTRYPOINT ["java", "-jar", "/opt/wildfly-swarm-test-1.0-SNAPSHOT-hollow-thorntail.jar", "/opt/deploy/wildfly-swarm-test-1.0-SNAPSHOT.war"]
