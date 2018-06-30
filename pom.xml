@@ -42,6 +42,18 @@
             <artifactId>undertow</artifactId>
         </dependency>
 
+        <!-- Management -->
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>management</artifactId>
+        </dependency>
+
+        <!-- Management -->
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>management-console</artifactId>
+        </dependency>
+
         <!-- JAX-RS -->
         <dependency>
             <groupId>io.thorntail</groupId>
